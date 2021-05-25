@@ -14477,7 +14477,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">students</span> <span class="o">=</span> <span class="p">[</span>
@@ -14487,9 +14487,13 @@ a.anchor-link {
          <span class="p">{</span><span class="s1">&#39;first_name&#39;</span> <span class="p">:</span> <span class="s1">&#39;KB&#39;</span><span class="p">,</span> <span class="s1">&#39;last_name&#39;</span> <span class="p">:</span> <span class="s1">&#39;Tonel&#39;</span><span class="p">}</span>
     <span class="p">]</span>
 
-<span class="k">def</span> <span class="nf">iterateDictionary</span><span class="p">(</span><span class="n">students</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">students</span><span class="p">:</span> <span class="c1">#loop through the students dictionary</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;first_name - &#39;</span><span class="p">,</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;first_name&#39;</span><span class="p">],</span> <span class="s1">&#39;, last_name - &#39;</span><span class="p">,</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;last_name&#39;</span><span class="p">])</span> <span class="c1"># access the index and then pass the key</span>
+
+<span class="k">def</span> <span class="nf">iterateDictionary</span><span class="p">(</span><span class="n">some_list</span><span class="p">):</span>
+    <span class="n">lis</span> <span class="o">=</span> <span class="n">some_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1">#get the first element of the list</span>
+    <span class="n">keysList</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">lis</span><span class="p">]</span> <span class="c1"># get the keys for that first element</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">some_list</span><span class="p">:</span> <span class="c1">#loop through the students dictionary</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">keysList</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">i</span><span class="p">[</span><span class="n">keysList</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">+</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">keysList</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">i</span><span class="p">[</span><span class="n">keysList</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span> <span class="c1"># access the index and then pass the key</span>
         
 <span class="n">iterateDictionary</span><span class="p">(</span><span class="n">students</span><span class="p">)</span> 
 
@@ -14518,10 +14522,10 @@ a.anchor-link {
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>first_name -  Michael , last_name -  Jordan
-first_name -  John , last_name -  Rosales
-first_name -  Mark , last_name -  Guillen
-first_name -  KB , last_name -  Tonel
+<pre>first_name - Michael, last_name - Jordan
+first_name - John, last_name - Rosales
+first_name - Mark, last_name - Guillen
+first_name - KB, last_name - Tonel
 </pre>
 </div>
 </div>
@@ -14552,7 +14556,7 @@ first_name -  KB , last_name -  Tonel
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">iterateDictionary2</span><span class="p">(</span><span class="n">key_name</span><span class="p">,</span> <span class="n">some_list</span><span class="p">):</span>
@@ -14642,7 +14646,7 @@ Tonel
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">dojo</span> <span class="o">=</span> <span class="p">{</span>
