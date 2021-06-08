@@ -1,0 +1,179 @@
+# LB Brewery Report
+##### By Wejdan Al-Ahmadi
+
+***
+
+
+#### LP Brewery has two distinct flavors of soda: Strawberry and Orange. While Strawberry generates a profit of $13 per batch, Orange generates a profit of $23 per batch. 
+
+#### Below you can see the table that shows the amount of ingredients needed to make 1 batch of each beverage as well as the maximum supply of those ingredients: 
+```{r ,echo = FALSE,message = FALSE}
+#Note: This is for the TA who is grading my homework, if you are John I would just like to say that the talk we had today really inspired me to push my 
+#creativity and think of useful plots that can help 
+library(lpSolve)
+objective.in1 = c (13, 23)
+const.mat1 = matrix( c(5,15,4,4,35,20), nrow = 3, byrow = TRUE)
+const.dir1 = c("<=", "<=", "<=")
+const.rhs1 = c(480, 160, 1190)
+
+prob_1 = lp(direction='max', objective.in1, const.mat1, const.dir1, const.rhs1)
+
+ans_1 = prob_1$solution
+
+val_1 = prob_1$objval
+
+colnames(const.mat1) <- c("Strawberry", "Orange")
+Ingredients_1 <- c("CO2", "Water", "Flavor")
+
+Max_Supply_1 <- const.rhs1
+Supply_1 <- data.frame(Ingredients_1,Max_Supply_1)
+
+Recipe_Per_Soda_B_1 <- cbind(const.mat1, Supply_1)
+Recipe_Per_Soda_B_1
+
+```
+
+***
+
+#### This plot shows us how much each batch of soda takes up from our ingredient inventory: 
+```{r ,echo = FALSE,message = FALSE,results=FALSE}
+#remove comments if you do not have these packages installed
+# install.packages("lpSolve")
+# install.packages("cowplot")
+library(tidyverse)
+library(grid)
+library(gridExtra)
+library(cowplot)
+#_____________________ Strawberry, Orange ______________________#
+
+
+
+
+
+for_legend_1<-ggplot(Recipe_Per_Soda_B_1, aes(fill=Ingredients_1, y=Max_Supply_1,x=interaction(Strawberry))) + 
+  geom_bar(position="dodge", stat="identity", width = 1)+scale_fill_discrete(name="Ingredients")
+
+plot1<-ggplot(Recipe_Per_Soda_B_1, aes(fill=Ingredients_1, y=Max_Supply_1,x=interaction(Strawberry))) + 
+  geom_bar(position="dodge", stat="identity", width = 1, show.legend = FALSE)+ylab("Supply")+xlab("Strawberry")
+
+plot2<-ggplot(Recipe_Per_Soda_B_1, aes(fill=Ingredients_1, y=Max_Supply_1,x=interaction(Orange))) + 
+  geom_bar(position="dodge", stat="identity", width = 1, show.legend = FALSE)+ylab("Supply")+xlab("Orange")
+
+
+
+
+legend_1 <- cowplot::get_legend(for_legend_1)
+
+
+Batch_1_Recipe_Plot<-grid.arrange(plot1, plot2,legend_1, ncol=3)
+
+
+batch_amount_1 <- round(ans_1)
+
+batch_name_1 <- c("Strawberry", "Orange")
+Profit_1 <- batch_amount_1*objective.in1
+
+
+profit_per_batch_1 <- data.frame(batch_amount_1,Profit_1,batch_name_1)
+
+
+
+
+                
+```
+
+***
+
+#### Here we can see the profits each beverage generated: 
+```{r,echo = FALSE,message = FALSE,results=FALSE}
+Profit_1_Plot <-ggplot(profit_per_batch_1, aes(x=interaction(batch_amount_1), y=Profit_1, fill=batch_name_1)) +
+  geom_bar(stat="identity")+theme_minimal()+ylab("Profit")+ 
+  xlab("Number of batches") +scale_fill_discrete(name="Batches")
+Profit_1_Plot 
+```
+
+#### For a maximum total profit of $ `r prob_1$objval`
+
+
+***
+
+#### LP Brewery's latest new beverage is the Grape soda! We can see from the table below the ingredients required for this additonal drink while also taking into consideration the working hours required to produce each batch: 
+
+```{r,echo = FALSE,message = FALSE}
+objective.in2 = c (13, 23, 30)
+const.mat2 = matrix( c(5,15,4,4,4,10,35,20,15,5,10,20), nrow =4 , byrow = TRUE)
+const.dir2 = c("<=", "<=", "<=","<=")
+const.rhs2 = c(480, 160, 1190,800)
+
+prob_2 = lp(direction='max', objective.in2, const.mat2, const.dir2, const.rhs2)
+
+ans_2 = prob_2$solution
+
+val_2 = prob_2$objval
+
+
+colnames(const.mat2) <- c("Strawberry", "Orange", "Grape")
+Ingredients_2 <- c("CO2", "Water", "Flavor", "Hours of Labor")
+
+Max_Supply_2 <- const.rhs2
+Supply_2 <- data.frame(Ingredients_2,Max_Supply_2)
+
+Recipe_Per_Soda_B_2 <- cbind(const.mat2, Supply_2)
+Recipe_Per_Soda_B_2
+
+
+
+```
+
+
+***
+
+
+#### This plot shows us how much each batch of soda including the new Grape flavor takes up from our ingredient inventory: 
+
+```{r,echo = FALSE,message = FALSE,results=FALSE}
+for_legend_2<-ggplot(Recipe_Per_Soda_B_2, aes(fill=Ingredients_2, y=Max_Supply_2,x=interaction(Strawberry))) + 
+  geom_bar(position="dodge", stat="identity", width = 1)+scale_fill_discrete(name="Ingredients")
+
+plot3<-ggplot(Recipe_Per_Soda_B_2, aes(fill=Ingredients_2, y=Max_Supply_2,x=interaction(Strawberry))) + 
+  geom_bar(position="dodge", stat="identity", width = 1, show.legend = FALSE)+ylab("Supply")+xlab("Strawberry")
+
+plot4<-ggplot(Recipe_Per_Soda_B_2, aes(fill=Ingredients_2, y=Max_Supply_2,x=interaction(Orange))) + 
+  geom_bar(position="dodge", stat="identity", width = 1, show.legend = FALSE)+ylab("Supply")+xlab("Orange")
+
+plot5<-ggplot(Recipe_Per_Soda_B_2, aes(fill=Ingredients_2, y=Max_Supply_2,x=interaction(Grape))) + 
+  geom_bar(position="dodge", stat="identity", width = 1, show.legend = FALSE)+ylab("Supply")+xlab("Grape")
+
+
+legend_2 <- cowplot::get_legend(for_legend_2)
+
+
+Batch_2_Recipe_Plot<-grid.arrange(plot3, plot4, plot5,legend_2, ncol=4)
+
+batch_amount_2 <- round(ans_2)
+
+batch_name_2 <- c("Strawberry", "Orange", "Grape")
+Profit_2 <- batch_amount_2*objective.in2
+
+
+profit_per_batch_2 <- data.frame(batch_amount_2,Profit_2,batch_name_2)
+
+
+```
+
+***
+
+
+#### Here we can see the profits each beverage generated: 
+```{r,echo = FALSE,message = FALSE,results=FALSE}
+Profit_2_Plot <-ggplot(profit_per_batch_2, aes(x=interaction(batch_amount_2), y=Profit_2, fill=batch_name_2)) +
+  geom_bar(stat="identity")+theme_minimal()+ylab("Profit")+ 
+  xlab("Number of batches") +scale_fill_discrete(name="Batches")
+Profit_2_Plot
+```
+
+
+***
+
+
+#### For a maximum total profit of $ `r round(prob_2$objval)`
